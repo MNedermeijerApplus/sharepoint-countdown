@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Countdown</title>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    html, body {
+      width: 365px;
+      height: 100px;
+      margin: 0;
+      font-family: 'Bai Jamjuree', sans-serif;
+      overflow: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .countdown-container {
+      width: 365px;
+      height: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #FF6900;
+      color: white;
+      text-align: center;
+      box-sizing: border-box;
+      padding: 6px;
+      cursor: pointer;
+    }
+
+    .time {
+      font-size: 1.6rem;
+      font-weight: 600;
+      line-height: 1.1;
+    }
+
+    .label {
+      font-size: 0.75rem;
+      font-weight: 400;
+      margin-top: 4px;
+      line-height: 1.1;
+    }
+  </style>
+</head>
+<body>
+
+<a href="https://applusglobal.sharepoint.com/sites/Software_Introduction/SitePages/Year-end-closing.aspx" target="_blank" rel="noopener noreferrer">
+  <div class="countdown-container">
+    <div id="countdown" class="time">Loading...</div>
+    <div class="label">until AppTime, VISMA YouServe and SRXP close!</div>
+  </div>
+</a>
+
+<script>
+  function updateCountdown() {
+    const now = new Date();
+
+    // Target: December 24th, 17:00 (local time)
+    const target = new Date(
+      now.getFullYear(),
+      11, // December (0-based)
+      24,
+      17,
+      0,
+      0
+    );
+
+    // If already passed this year, move to next year
+    if (now > target) {
+      target.setFullYear(target.getFullYear() + 1);
+    }
+
+    const diff = target - now;
+
+    if (diff <= 0) {
+      document.getElementById("countdown").textContent = "Closed";
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("countdown").textContent =
+      `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
